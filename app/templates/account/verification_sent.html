@@ -1,8 +1,6 @@
 {% extends "../base.html" %}
 
-{% load i18n %}
-
-{% block head_title %}{% trans "Verify Your E-mail Address" %} | {{ block.super }}{% endblock %}
+{% block head_title %} Verify Your E-mail Address | {{ block.super }}{% endblock %}
 
 {% block content %}
 <div class="relative backdrop-filter backdrop-blur-sm z-30 mx-4 sm:max-w-md sm:mx-auto px-8 py-12 bg-white bg-opacity-25 shadow-sm rounded-lg text-white">
@@ -10,8 +8,8 @@
     <span class="mr-4 text-xl sm:text-2xl">
       <i class="fas fa-info-circle"></i>
     </span>
-    <h1 class="text-sm sm:text-lg font-bold text-center">{% trans "Verify Your E-mail Address" %}</h1>
+    <h1 class="text-sm sm:text-lg font-bold text-center">Verify Your E-mail Address</h1>
   </div>
-  <p class="text-sm leading-6 mx-auto">{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+  <p class="text-sm leading-6 mx-auto">We have sent an e-mail to you for verification. Follow the link provided to finalize the sign up process. Please contact us if you do not receive it within a few minutes.</p>
 </div>
 {% endblock %}

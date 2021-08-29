@@ -3,3 +3,4 @@
 .env.dev
 docker-compose.ssl.yml
 .vscode
+.DS_Store
