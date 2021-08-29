@@ -39,36 +39,36 @@
     <div class="flex text-blue-500">
       <div class="flex mr-4 select-none">
         <i class="fas fa-pencil-alt mr-1"></i>
-        <a class="" href="{% url 'item.update' object.pk %}">編集</a>
+        <a class="" href="{% url 'item.update' object.pk %}">edit</a>
       </div>
       <div class="flex select-none">
         <i class="fas fa-trash-alt mr-1"></i>
-        <button id="btn-del" class="" href="">削除</button>
+        <button id="btn-del" class="" href="">delete</button>
       </div>
     </div>
   </div>
   {% endif %}
   <div class="flex items-center justify-between">
-    <h3 class="text-xl my-4 font-bold">コメント</h3>
-    <a class="text-gray-400 text-sm" href="#comment-area">コメントを書く</a>
+    <h3 class="text-xl my-4 font-bold">comment</h3>
+    <a class="text-gray-400 text-sm" href="#comment-area">Write a comment</a>
   </div>
   {% if object.comment__count > 0 %}
-    <div class="grid grid-cols-1 gap-y-4">
+  <div class="grid grid-cols-1 gap-y-4">
     {% for c in object.comments %}
-      {% include '../components/_comment.html' %}
+    {% include '../components/_comment.html' %}
     {% endfor %}
-    </div>
+  </div>
   {% else %}
-  <p>コメントはありません</p>
+  <p>No comments</p>
   {% endif %}
-  <a class="btn btn-gray my-4" href="{% url 'item.list' %}">もどる</a>
-  <h3 id="comment-area" class="text-xl my-4 font-bold">コメントを書く</h3>
+  <a class="btn btn-gray my-4" href="{% url 'item.list' %}">Return</a>
+  <h3 id="comment-area" class="text-xl my-4 font-bold">Write a comment</h3>
   <div>
     <form action="{% url 'item.create_comment' object.id %}" method="POST">
       {% csrf_token %}
       <textarea name="comment" id="" cols="50" rows="5" class="input"></textarea>
       <div class="text-center">
-        <button type="submit" class="btn btn-black btn-wide">送信</button>
+        <button type="submit" class="btn btn-black btn-wide">transmission</button>
       </div>
     </form>
   </div>
@@ -78,5 +78,6 @@
 {% block extrajs %}
 <script>
   fetchItem.del('{{ object.id }}')
+
 </script>
 {% endblock %}

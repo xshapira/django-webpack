@@ -6,13 +6,14 @@
     color: dodgerblue;
     border-bottom: 2px solid dodgerblue;
   }
+
 </style>
 {% endblock %}
 
 {% block head_title %}Home | {{ block.super }}{% endblock %}
 
 {% block hero %}
-<div class="bg-white bg-blur relative overflow-hidden w-full flex items-center h-80 bg-cover bg-no-repeat blur-sm bg-center z-0" {% if hero %} style="background-image: url('{{ hero }}')"; {% else %} style="background-image: url('/static/img/bg-0.jpg')"; {% endif %}>
+<div class="bg-white bg-blur relative overflow-hidden w-full flex items-center h-80 bg-cover bg-no-repeat blur-sm bg-center z-0" {% if hero %} style="background-image: url('{{ hero }}')" ; {% else %} style="background-image: url('/static/img/bg-0.jpg')" ; {% endif %}>
   <div class="relative z-20 max-w-5xl container mx-4 lg:mx-auto flex flex-col sm:flex-row items-center justify-between">
     <div class="sm:w-1/2">
       <div class="flex flex-col sm:flex-row text-center sm:text-left items-center sm:items-start">
@@ -34,16 +35,16 @@
       </div>
     </div>
     <div class="mt-4 sm:mt-0">
-      <a class="btn btn-ghost" href="{% url 'user.update' user.id %}">プロフィール編集</a>
+      <a class="btn btn-ghost" href="{% url 'user.update' user.id %}">Profile editing</a>
     </div>
   </div>
 </div>
 <div class="bg-white w-full">
   <div class="max-w-5xl container lg:mx-auto">
     <div class="tab-list flex justify-center sm:justify-start">
-      <div data-id="tab-1" class="js-current text-center w-32 p-2 sm:p-4 font-bold hover:opacity-80 text-sm cursor-pointer select-none">アイテム</div>
-      <div data-id="tab-2" class="text-center w-32 p-2 sm:p-4 font-bold hover:opacity-80 text-sm cursor-pointer select-none">いいね</div>
-      <div data-id="tab-3" class="text-center w-32 p-2 sm:p-4 font-bold hover:opacity-80 text-sm cursor-pointer select-none">コメント</div>
+      <div data-id="tab-1" class="js-current text-center w-32 p-2 sm:p-4 font-bold hover:opacity-80 text-sm cursor-pointer select-none">item</div>
+      <div data-id="tab-2" class="text-center w-32 p-2 sm:p-4 font-bold hover:opacity-80 text-sm cursor-pointer select-none">Nice</div>
+      <div data-id="tab-3" class="text-center w-32 p-2 sm:p-4 font-bold hover:opacity-80 text-sm cursor-pointer select-none">comment</div>
     </div>
   </div>
 </div>
@@ -54,36 +55,36 @@
   <div id="tab-1" class="block">
     <div class="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 md:gap-6 mx-2 sm:mx-auto">
       {% if myitems %}
-        {% for item in myitems %}
-          {% include './components/_card.html' %}
-        {% endfor %}
+      {% for item in myitems %}
+      {% include './components/_card.html' %}
+      {% endfor %}
       {% else %}
-        <p>まだ投稿していません</p>
+      <p>I haven't posted yet</p>
       {% endif %}
     </div>
   </div>
   <div id="tab-2" class="hidden">
     <div class="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 md:gap-6 mx-2 sm:mx-auto">
       {% if mylikes %}
-        {% for item in mylikes %}
-          {% include './components/_card.html' %}
-        {% endfor %}
+      {% for item in mylikes %}
+      {% include './components/_card.html' %}
+      {% endfor %}
       {% else %}
-        <p>いいねしていません</p>
+      <p>I'm not like it.</p>
       {% endif %}
     </div>
   </div>
   <div id="tab-3" class="hidden">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 md:gap-6 mx-2 sm:mx-auto">
-    {% if mycomments is not False %}
+      {% if mycomments is not False %}
       {% for c in mycomments %}
       <a href="{% url 'item.detail' c.item_id %}">
         {% include './components/_comment.html' %}
       </a>
       {% endfor %}
-    {% else %}
-      <p>コメントしていません</p>
-    {% endif %}
+      {% else %}
+      <p>I'm not commenting</p>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -94,5 +95,6 @@
   fetchUser.setAvatar('{{ user.id }}')
   fetchItem.like()
   libs.setTabs()
+
 </script>
 {% endblock %}

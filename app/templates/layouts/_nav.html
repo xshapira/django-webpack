@@ -1,12 +1,12 @@
 <nav>
   <ul style="list-style:none;display:flex;">
-    <li><a href="{% url 'item.list' %}">アイテム一覧</a></li>
+    <li><a href="{% url 'item.list' %}">Item list</a></li>
     {% if user.is_authenticated %}
-    <li><a href="{% url 'home' %}">マイページ</a></li>
-    <li><a href="{% url 'account_logout' %}">ログアウト</a></li>
+    <li><a href="{% url 'home' %}">My page</a></li>
+    <li><a href="{% url 'account_logout' %}">Log out</a></li>
     {% else %}
-    <li><a href="{% url 'account_login' %}">ログイン</a></li>
-    <li><a href="{% url 'account_signup' %}">ユーザー登録</a></li>
+    <li><a href="{% url 'account_login' %}">Login</a></li>
+    <li><a href="{% url 'account_signup' %}">Sign up</a></li>
     {% endif %}
   </ul>
 </nav>
