@@ -8,13 +8,18 @@ import user.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user', '0006_rename_plofile_customuser_profile'),
+        ("user", "0006_rename_plofile_customuser_profile"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customuser',
-            name='avatar',
-            field=imagekit.models.fields.ProcessedImageField(blank=True, default='public/avatar.svg', null=True, upload_to=user.models.CustomUser.user_directory_path),
+            model_name="customuser",
+            name="avatar",
+            field=imagekit.models.fields.ProcessedImageField(
+                blank=True,
+                default="public/avatar.svg",
+                null=True,
+                upload_to=user.models.User.user_directory_path,
+            ),
         ),
     ]

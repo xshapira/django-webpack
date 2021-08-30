@@ -6,24 +6,26 @@ from django.views.generic import TemplateView, DetailView, UpdateView
 from django.urls import reverse_lazy
 from django.http import JsonResponse, HttpRequest
 
-from .models import CustomUser
+from .models import User
 from item.models import Item, Comment
 from item.views import ItemList
 
+
 class HomeDetail(TemplateView):
-  model = CustomUser
-  template_name = 'home.html'
+    model = User
+    template_name = "home.html"
 
-  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    context['myitems'] = Item.objects.filter(author=self.request.user).order_by('-created_at')
+        context["myitems"] = Item.objects.filter(author=self.request.user).order_by(
+            "-created_at"
+        )
 
-    return context
+        return context
 
 
-
-'''
+"""
 OK HERE=====
   model = Item
   template_name = 'home.html'
@@ -80,63 +82,58 @@ OK HERE=====
     context['islike'] = ldict
     context['likecnt'] = likecnt
     return context
-'''
+"""
 
 
+# def get_context_data(self):
+#   context = super().get_context_data()
+#   items = Item.objects.filter(author=self.request.user).order_by('-created_at')
+#   try:
+#     hero = items.latest("created_at")
+#     context['hero'] = hero.getThumbnailImage()
+#   except Item.DoesNotExist:
+#     print('404')
+#   likes = Item.objects.filter(likes__user=self.request.user).order_by('-likes__created_at')
+#   comments = Comment.objects.filter(author=self.request.user).order_by('-created_at')
+#   context['items'] = items
+#   context['likes'] = likes
+#   context['comments'] = comments
 
-
-
-
-  # def get_context_data(self):
-  #   context = super().get_context_data()
-  #   items = Item.objects.filter(author=self.request.user).order_by('-created_at')
-  #   try:
-  #     hero = items.latest("created_at")
-  #     context['hero'] = hero.getThumbnailImage()
-  #   except Item.DoesNotExist:
-  #     print('404')
-  #   likes = Item.objects.filter(likes__user=self.request.user).order_by('-likes__created_at')
-  #   comments = Comment.objects.filter(author=self.request.user).order_by('-created_at')
-  #   context['items'] = items
-  #   context['likes'] = likes
-  #   context['comments'] = comments
-
-  #   return context
-
-
-
+#   return context
 
 
 class UserDetail(DetailView):
-  model = CustomUser
-  context_object_name = "items"
-  template_name = 'user/detail.html'
+    model = User
+    context_object_name = "items"
+    template_name = "user/detail.html"
 
-  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-    items = Item.objects.filter(author=self.object.id)
-    likes = Item.objects.filter(likes__author=self.object.id)
-    context['items'] = items
-    context['likes'] = likes
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        items = Item.objects.filter(author=self.object.id)
+        likes = Item.objects.filter(likes__author=self.object.id)
+        context["items"] = items
+        context["likes"] = likes
 
-    return context
+        return context
+
 
 class UserUpdate(LoginRequiredMixin, UpdateView):
-  model = CustomUser
-  template_name = 'user/update.html'
-  fields = ('displayname', 'profile')
-  success_url = reverse_lazy('home')
+    model = User
+    template_name = "user/update.html"
+    fields = ("displayname", "profile")
+    success_url = reverse_lazy("home")
 
-  def get_queryset(self):
-    queryset = super().get_queryset()
+    def get_queryset(self):
+        queryset = super().get_queryset()
 
-    return queryset.filter(id=self.request.user.id)
+        return queryset.filter(id=self.request.user.id)
+
 
 def AvatarUpload(request, pk):
-  if request.method == 'POST':
-    avatar = request.FILES['avatar']
-    user = CustomUser.objects.get(pk=pk)
-    user.avatar = avatar
-    user.save(update_fields=['avatar'])
+    if request.method == "POST":
+        avatar = request.FILES["avatar"]
+        user = User.objects.get(pk=pk)
+        user.avatar = avatar
+        user.save(update_fields=["avatar"])
 
-    return JsonResponse({ 'url': user.avatar.url})
+        return JsonResponse({"url": user.avatar.url})

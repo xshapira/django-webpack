@@ -156,7 +156,7 @@ ex: Inheriting AbstractUser
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class CustomUser(AbstractUser):
+class User(AbstractUser):
   class Meta:
     db_table = 'custom_user'
 
@@ -164,7 +164,7 @@ class CustomUser(AbstractUser):
 ```
 
 ```python[settings.py]
-AUTH_USER_MODEL = 'accounts.CustomUser' # <Application name>. <Model class name>
+AUTH_USER_MODEL = 'accounts.User' # <Application name>. <Model class name>
 ```
 
 
