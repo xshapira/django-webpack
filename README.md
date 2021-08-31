@@ -1,4 +1,4 @@
-# Django CRUD app on Docker
+# Django app (just User)
 
 Django + Nginx + Gunicorn + Docker repository. Support for Django 3.2 with reference to the following sources: It also has a flexible configuration with docker-compose.
 
