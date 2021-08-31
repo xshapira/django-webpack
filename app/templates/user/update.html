@@ -10,19 +10,15 @@
       <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div>
-          <label class="block mb-2 text-sm" for="id_title">Represents a name</label>
-          <input class="input" type="text" name="displayname" maxlength="50" id="id_displayname">
-        </div>
-        <div>
-          <label class="block mb-2 text-sm" for="id_title">profile</label>
-          <textarea class="input" name="profile" cols="40" rows="5" id="id_profile"></textarea>
+          <label class="block mb-2 text-sm" for="id_title">Bio</label>
+          <textarea class="input" name="bio" cols="50" rows="5" id="id_profile" maxlength="200"></textarea>
         </div>
         <div class="text-center mt-8">
-          <button class="btn btn-black btn-wide" type="submit">update</button>
+          <button class="btn btn-black btn-wide" type="submit">Update</button>
         </div>
       </form>
     </div>
-    <a class="btn btn-gray" href="{% url 'home' %}">cancel</a>
+    <a class="btn btn-gray" href="{% url 'home' %}">Cancel</a>
   </div>
 </div>
 {% endblock %}

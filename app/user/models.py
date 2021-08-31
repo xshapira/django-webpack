@@ -15,8 +15,7 @@ class User(AbstractUser):
             instance.id, str(uuid.uuid4()), filename.split(".")[-1]
         )
 
-    displayname = models.CharField(max_length=50, default="", blank=True, null=True)
-    profile = models.TextField(default="", blank=True, null=True)
+    bio = models.TextField(max_length=200, default="", blank=True, null=True)
     avatar = ProcessedImageField(
         blank=True,
         null=True,
