@@ -13,7 +13,7 @@ class IndexView(TemplateView):
       if hero.image:
         context['hero'] = hero.getThumbnailImage()
       else:
-        context['hero'] = settings.STATIC_URL + 'img/bg-0.jpg'
+        context['hero'] = f'{settings.STATIC_URL}img/bg-0.jpg'
     except Item.DoesNotExist:
       print('404')
 

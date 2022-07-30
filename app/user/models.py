@@ -10,10 +10,8 @@ class User(AbstractUser):
     class Meta:
         db_table = "user"
 
-    def user_directory_path(instance, filename):
-        return "user/{}/{}.{}".format(
-            instance.id, str(uuid.uuid4()), filename.split(".")[-1]
-        )
+    def user_directory_path(self, filename):
+        return f'user/{self.id}/{str(uuid.uuid4())}.{filename.split(".")[-1]}'
 
     bio = models.TextField(max_length=200, default="", blank=True, null=True)
     avatar = ProcessedImageField(
@@ -25,7 +23,8 @@ class User(AbstractUser):
     )
 
     def getAvatar(self):
-        if not self.avatar:
-            return settings.STATIC_URL + "img/avatar.svg"
-        else:
-            return self.avatar.url
+        return (
+            self.avatar.url
+            if self.avatar
+            else f"{settings.STATIC_URL}img/avatar.svg"
+        )

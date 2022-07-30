@@ -11,9 +11,7 @@ register = template.Library()
 
 
 def upload_directory_path(instance, filename):
-    return "item/{}/{}.{}".format(
-        instance.id, str(uuid.uuid4()), filename.split(".")[-1]
-    )
+    return f'item/{instance.id}/{str(uuid.uuid4())}.{filename.split(".")[-1]}'
 
 
 class Tag(models.Model):
@@ -52,19 +50,21 @@ class Item(models.Model):
     likes = models.ManyToManyField(Like)
 
     def __str__(self):
-        return "{}({})".format(self.title, self.author)
+        return f"{self.title}({self.author})"
 
     def getSmallImage(self):
-        if not self.image:
-            return settings.STATIC_URL + "img/noimage.png"
-        else:
-            return self.image_small.url
+        return (
+            self.image_small.url
+            if self.image
+            else f"{settings.STATIC_URL}img/noimage.png"
+        )
 
     def getThumbnailImage(self):
-        if not self.image:
-            return settings.STATIC_URL + "img/noimage.png"
-        else:
-            return self.image_thumbnail.url
+        return (
+            self.image_thumbnail.url
+            if self.image
+            else f"{settings.STATIC_URL}img/noimage.png"
+        )
 
     def get_currentuser_islike(self, user_id):
         is_like = False

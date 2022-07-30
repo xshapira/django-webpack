@@ -57,8 +57,7 @@ class ItemList(ListView):
     return q
 
   def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-    return context
+    return super().get_context_data(**kwargs)
 
 class ItemDetail(DetailView):
   model = Item
@@ -103,8 +102,7 @@ class ItemDetail(DetailView):
       return self.queryset
 
   def get_context_data(self, **kwargs):
-      context = super().get_context_data(**kwargs)
-      return context
+    return super().get_context_data(**kwargs)
 
 class ItemCreate(LoginRequiredMixin, CreateView):
   model = Item
@@ -115,14 +113,11 @@ class ItemCreate(LoginRequiredMixin, CreateView):
     item = form.save(commit=False)
     item.author = self.request.user
     item.save()
-    tags = self.request.POST['tags'].split(',')
-
-    if tags:
+    if tags := self.request.POST['tags'].split(','):
       for tag_name in tags:
         tag_name = tag_name.strip()
         if tag_name != '':
-          exist = Tag.objects.filter(name=tag_name).first()
-          if exist:
+          if exist := Tag.objects.filter(name=tag_name).first():
             item.tags.add(exist)
           else:
             item.tags.create(name=tag_name)
@@ -147,9 +142,7 @@ class ItemUpdate(LoginRequiredMixin, UpdateView):
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     tags = self.object.tags.all()
-    arr = []
-    for tag in tags:
-      arr.append(tag.name)
+    arr = [tag.name for tag in tags]
     context['tag_arr'] = arr
     return context
 
@@ -168,14 +161,11 @@ class ItemUpdate(LoginRequiredMixin, UpdateView):
       if current_tag.item_set.count() == 0:
         current_tag.delete()
 
-    # Add or Create request tags
-    tags = self.request.POST['tags'].split(',')
-    if tags:
+    if tags := self.request.POST['tags'].split(','):
       for tag_name in tags:
         tag_name = tag_name.strip()
         if tag_name != '':
-          exist = Tag.objects.filter(name=tag_name).first()
-          if exist:
+          if exist := Tag.objects.filter(name=tag_name).first():
             item.tags.add(exist)
           else:
             item.tags.create(name=tag_name)
@@ -206,8 +196,7 @@ def like(request, pk):
   if request.method == 'POST':
     item = Item.objects.get(pk=pk)
     like = item.likes.filter(user=request.user)
-    flg = like.exists()
-    if flg:
+    if flg := like.exists():
       like.delete()
     else:
       l = Like(user=request.user, item=item)
@@ -252,7 +241,7 @@ class HomeView(ItemList):
       hero = myitems.first()
       context['hero'] = hero.getThumbnailImage()
     except (Item.DoesNotExist, AttributeError):
-      context['hero'] = settings.STATIC_URL + 'img/bg-0.jpg'
+      context['hero'] = f'{settings.STATIC_URL}img/bg-0.jpg'
 
     return context
 
